@@ -1,0 +1,22 @@
+services:
+  ml-api:
+    build:
+      context: .
+      dockerfile: ml/Dockerfile
+    image: mlmodel
+    container_name: mlmodel-container
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./ml/model.pkl:/app/model.pkl
+
+  streamlit-web:
+    build:
+      context: .
+      dockerfile: streamlit-service/Dockerfile
+    image: streamlit
+    container_name: streamlit-container
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./streamlit-service/streamlit_app.py:/app/streamlit_app.py
